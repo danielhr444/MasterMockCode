@@ -136,11 +136,7 @@ void DriveTrain::getAccelerations(double* x, double* y, double* z)
 
 void DriveTrain::InitDefaultCommand()
 {
-<<<<<<< HEAD
-   SetDefaultCommand(new ArcadeDrive()); //Sauhaarda set your PID command here
-=======
     SetDefaultCommand(new ArcadeDrive()); //Sauhaarda set your PID command here
->>>>>>> 5ee9fcf00b80691a226e5d11d65834d4623febf0
 }
 
 double DriveTrain::getLeftEncoderDistance()
