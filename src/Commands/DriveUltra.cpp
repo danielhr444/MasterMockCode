@@ -6,6 +6,7 @@ DriveUltra::DriveUltra()
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
+	Requires(DriveTrain);
 
 }
 
@@ -14,29 +15,30 @@ void DriveUltra::Initialize()
 {
 	wallLimit = 10; // get value from testing
 	wallDetector->Initialize();
+	motorTurn->resetGyro();
+	motorTurn->resetEncoders();
+
+	PIDGoToTarget::Start(); // moves robot to wall, use CV camera to find wall
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveUltra::Execute()
+
 {
-	double receivedVal = wallDetector->GetRangeInches();
-
-	if(receivedVal >= wallLimit )
-	{
-		PIDGoToTarget::Start(); // use data from CV camera to get to wall
-	}
-
-	else
-	{
-		PIDGoToTarget::Start(); // use data from CV camera to locate target area around wall
-		                        // and drive to that location
-  	}
+	// i have no idea what would go here
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveUltra::IsFinished()
 {
+	double receivedVal = wallDetector->GetRangeInches();
+
+	if (receivedVal <= wallLimit)
+	{
+		PIDGoToTarget::Start(); // Use CV camera to set goal as the wall with targets
+		return true;            // PID method will stop once close enough
+	}
 	return false;
 }
 

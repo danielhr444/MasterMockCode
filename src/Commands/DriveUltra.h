@@ -19,6 +19,8 @@ public:
 private:
 	Ultrasonic* wallDetector;
 	double wallLimit;
+	DriveTrain* motorTurn;
+
 
 
 };
